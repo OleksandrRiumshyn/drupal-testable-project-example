@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="web/core/tests/bootstrap.php" colors="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         failOnWarning="true"
+         cacheResult="false"
+         testdox="true"
+         processIsolation="true"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd">
+  <php>
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
+    <env name="SIMPLETEST_DB" value="sqlite://localhost/sites/default/files/simpletest_db.sqlite"/>
+  </php>
+  <testsuites>
+    <testsuite name="modules">
+      <directory>web/modules/custom/*/tests</directory>
+      <directory>web/modules/custom/*/modules/*/tests</directory>
+    </testsuite>
+  </testsuites>
+  <groups>
+    <exclude>
+      <group>ignore</group>
+    </exclude>
+  </groups>
+  <listeners>
+    <listener class="\Drupal\Tests\Listeners\DrupalListener">
+    </listener>
+  </listeners>
+  <coverage pathCoverage="true"
+            ignoreDeprecatedCodeUnits="true"
+            disableCodeCoverageIgnore="true">
+    <include>
+      <directory suffix=".php">web/modules/custom/*/src</directory>
+      <directory suffix=".php">web/modules/custom/*/modules/*/src</directory>
+    </include>
+    <report>
+      <html outputDirectory="web/report/coverage" lowUpperBound="50" highLowerBound="99"/>
+    </report>
+  </coverage>
+  <logging>
+    <junit outputFile="web/report/junit.xml"/>
+  </logging>
+</phpunit>

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+## Generate test coverage for project
+##
+## Usage: fin coverage
+
+# Abort if anything fails
+set -e
+
+XDEBUG_ENABLED=1 XDEBUG_MODE=coverage fin up
+fin composer phpunit
+fin up
+echo "Report available at web/report/coverage/"
